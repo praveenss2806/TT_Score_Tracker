@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TT Score Tracker</string>
+    <string name="player1">Praveen</string>
+    <string name="gamePlayer1">0</string>
+    <string name="pointPlayer1">0</string>
+    <string name="player2">Yasho</string>
+    <string name="gamePlayer2">0</string>
+    <string name="pointPlayer2">0</string>
+    <string name="buttonText">Point Won</string>
+</resources>
