@@ -9,16 +9,21 @@ import android.widget.TextView
 class MainActivity : AppCompatActivity() {
     private lateinit var P1PointScore: TextView;
     private lateinit var P2PointScore: TextView;
+    private lateinit var P1GameScore: TextView;
+    private lateinit var P2GameScore: TextView;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         P1PointScore = findViewById(R.id.pointScore1);
         P2PointScore = findViewById(R.id.pointScore2);
+        P1GameScore = findViewById(R.id.gameScore);
+        P2GameScore = findViewById(R.id.gameScore2);
 
         val message1 = intent.getStringExtra("player1")
         val message2 = intent.getStringExtra("player2")
 
+        //for putting the names of the players
         val p1Name = findViewById<TextView>(R.id.textViewPlayer1).apply {
             text = message1
         }
@@ -34,14 +39,44 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addPlayer1Point(view: View) {
-        val currentPoint = P1PointScore.text.toString();
-        val newPoint = currentPoint.toInt().inc();
-        P1PointScore.text = newPoint.toString();
+        val currentPoint1 = P1PointScore.text.toString()
+        var newPoint1 = currentPoint1.toInt().inc()
+
+        val currentPoint2 = P2PointScore.text.toString()
+        var newPoint2 = currentPoint2.toInt()
+
+        val currentGame1 = P1GameScore.text.toString()
+        var newGame1 = currentGame1.toInt()
+
+        if(newPoint1 >= 11 && (newPoint1 - newPoint2 >= 2) ) {
+            newGame1 += 1;
+            newPoint1 = 0;
+            newPoint2 = 0;
+        }
+
+        P1PointScore.text = newPoint1.toString()
+        P2PointScore.text = newPoint2.toString()
+        P1GameScore.text = newGame1.toString()
     }
 
     fun addPlayer2Point(view: View) {
-        val currentPoint = P2PointScore.text.toString();
-        val newPoint = currentPoint.toInt().inc();
-        P2PointScore.text = newPoint.toString();
+        val currentPoint1 = P1PointScore.text.toString()
+        var newPoint1 = currentPoint1.toInt()
+
+        val currentPoint2 = P2PointScore.text.toString()
+        var newPoint2 = currentPoint2.toInt().inc()
+
+        val currentGame2 = P2GameScore.text.toString()
+        var newGame2 = currentGame2.toInt()
+
+        if(newPoint2 >= 11 && (newPoint2 - newPoint1 >= 2) ) {
+            newGame2 += 1;
+            newPoint1 = 0;
+            newPoint2 = 0;
+        }
+
+        P1PointScore.text = newPoint1.toString()
+        P2PointScore.text = newPoint2.toString()
+        P2GameScore.text = newGame2.toString()
     }
 }
