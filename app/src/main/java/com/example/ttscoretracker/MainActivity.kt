@@ -1,5 +1,6 @@
 package com.example.ttscoretracker
 
+import android.content.Intent
 import android.os.Build.VERSION_CODES.P
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -54,6 +55,11 @@ class MainActivity : AppCompatActivity() {
             newPoint2 = 0;
         }
 
+        if(newGame1 == 2) {
+            val intent = Intent(this, ResultActivity::class.java)
+            startActivity(intent)
+        }
+
         P1PointScore.text = newPoint1.toString()
         P2PointScore.text = newPoint2.toString()
         P1GameScore.text = newGame1.toString()
@@ -73,6 +79,11 @@ class MainActivity : AppCompatActivity() {
             newGame2 += 1;
             newPoint1 = 0;
             newPoint2 = 0;
+        }
+
+        if(newGame2 == 2) {
+            val intent = Intent(this, ResultActivity::class.java)
+            startActivity(intent)
         }
 
         P1PointScore.text = newPoint1.toString()
