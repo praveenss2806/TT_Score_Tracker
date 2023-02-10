@@ -8,23 +8,23 @@ import android.view.View
 import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var P1PointScore: TextView;
-    private lateinit var P2PointScore: TextView;
-    private lateinit var P1GameScore: TextView;
-    private lateinit var P2GameScore: TextView;
+    private lateinit var P1PointScore: TextView
+    private lateinit var P2PointScore: TextView
+    private lateinit var P1GameScore: TextView
+    private lateinit var P2GameScore: TextView
 
-    var P1TotalPoints = 0;
-    var P2TotalPoints = 0;
-    var P1GameWon = 0;
-    var P2GameWon = 0;
+    var P1TotalPoints = 0
+    var P2TotalPoints = 0
+    var P1GameWon = 0
+    var P2GameWon = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        P1PointScore = findViewById(R.id.pointScore1);
-        P2PointScore = findViewById(R.id.pointScore2);
-        P1GameScore = findViewById(R.id.gameScore);
-        P2GameScore = findViewById(R.id.gameScore2);
+        P1PointScore = findViewById(R.id.pointScore1)
+        P2PointScore = findViewById(R.id.pointScore2)
+        P1GameScore = findViewById(R.id.gameScore)
+        P2GameScore = findViewById(R.id.gameScore2)
 
         val message1 = intent.getStringExtra("player1")
         val message2 = intent.getStringExtra("player2")
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addPlayer1Point(view: View) {
-        P1TotalPoints += 1;
+        P1TotalPoints += 1
 
         val currentPoint1 = P1PointScore.text.toString()
         var newPoint1 = currentPoint1.toInt().inc()
@@ -57,13 +57,13 @@ class MainActivity : AppCompatActivity() {
         var newGame1 = currentGame1.toInt()
 
         if(newPoint1 >= 11 && (newPoint1 - newPoint2 >= 2) ) {
-            newGame1 += 1;
-            newPoint1 = 0;
-            newPoint2 = 0;
+            newGame1 += 1
+            newPoint1 = 0
+            newPoint2 = 0
         }
 
         if(newGame1 == 2) {
-            resultIntent();
+            resultIntent()
         }
 
         P1PointScore.text = newPoint1.toString()
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addPlayer2Point(view: View) {
-        P2TotalPoints += 1;
+        P2TotalPoints += 1
 
         val currentPoint1 = P1PointScore.text.toString()
         var newPoint1 = currentPoint1.toInt()
@@ -84,13 +84,13 @@ class MainActivity : AppCompatActivity() {
         var newGame2 = currentGame2.toInt()
 
         if(newPoint2 >= 11 && (newPoint2 - newPoint1 >= 2) ) {
-            newGame2 += 1;
-            newPoint1 = 0;
-            newPoint2 = 0;
+            newGame2 += 1
+            newPoint1 = 0
+            newPoint2 = 0
         }
 
         if(newGame2 == 2) {
-            resultIntent();
+            resultIntent()
         }
 
         P1PointScore.text = newPoint1.toString()
