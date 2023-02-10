@@ -19,11 +19,44 @@
 
         <TableRow
             android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="206dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="Name"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Game"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Point"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textViewPlayer1"
-                android:layout_width="wrap_content"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
@@ -32,7 +65,7 @@
 
             <TextView
                 android:id="@+id/gameScore"
-                android:layout_width="58dp"
+                android:layout_width="117dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/gamePlayer1"
@@ -86,8 +119,9 @@
 
             <TextView
                 android:id="@+id/player1Name"
-                android:layout_width="199dp"
+                android:layout_width="216dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/player1"
                 android:textSize="24sp" />
@@ -109,10 +143,11 @@
 
             <Button
                 android:id="@+id/button"
-                android:layout_width="wrap_content"
+                android:layout_width="11dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
+                android:layout_weight="1"
                 android:onClick="addPlayer1Point"
                 android:text="@string/buttonText" />
 

@@ -1,7 +1,6 @@
 package com.example.ttscoretracker
 
 import android.content.Intent
-import android.os.Build.VERSION_CODES.P
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
