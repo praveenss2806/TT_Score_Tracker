@@ -13,6 +13,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var P1GameScore: TextView;
     private lateinit var P2GameScore: TextView;
 
+    var P1TotalPoints = 0;
+    var P2TotalPoints = 0;
+    var P1GameWon = 0;
+    var P2GameWon = 0;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,6 +45,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addPlayer1Point(view: View) {
+        P1TotalPoints += 1;
+
         val currentPoint1 = P1PointScore.text.toString()
         var newPoint1 = currentPoint1.toInt().inc()
 
@@ -56,8 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(newGame1 == 2) {
-            val intent = Intent(this, ResultActivity::class.java)
-            startActivity(intent)
+            resultIntent();
         }
 
         P1PointScore.text = newPoint1.toString()
@@ -66,6 +72,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addPlayer2Point(view: View) {
+        P2TotalPoints += 1;
+
         val currentPoint1 = P1PointScore.text.toString()
         var newPoint1 = currentPoint1.toInt()
 
@@ -82,12 +90,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         if(newGame2 == 2) {
-            val intent = Intent(this, ResultActivity::class.java)
-            startActivity(intent)
+            resultIntent();
         }
 
         P1PointScore.text = newPoint1.toString()
         P2PointScore.text = newPoint2.toString()
         P2GameScore.text = newGame2.toString()
+    }
+
+    fun resultIntent() {
+        val intent = Intent(this, ResultActivity::class.java).also {
+            val message1 = intent.getStringExtra("player1")
+            val message2 = intent.getStringExtra("player2")
+            it.putExtra("player1",message1)
+            it.putExtra("player2",message2)
+            it.putExtra("p1TotalPoints",P1TotalPoints);
+            it.putExtra("p2TotalPoints",P2TotalPoints);
+            startActivity(it)
+        }
     }
 }

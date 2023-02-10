@@ -38,6 +38,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
+                android:id="@+id/RA_Name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -45,6 +46,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
             <TextView
+                android:id="@+id/RA_Name2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -61,12 +63,14 @@
                 android:text="Points" />
 
             <TextView
+                android:id="@+id/P1_Points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="5" />
 
             <TextView
+                android:id="@+id/P2_Points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
