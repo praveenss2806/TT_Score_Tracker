@@ -27,10 +27,20 @@ class InputActivity : AppCompatActivity() {
         val editText2 = findViewById<EditText>(R.id.editTextPlayer2)
         val player2 = editText2.text.toString()
 
-        val intent = Intent(this, MainActivity::class.java).also {
-            it.putExtra("player1",player1)
-            it.putExtra("player2",player2)
-            startActivity(it)
+        if(editText1.text.isEmpty() || editText2.text.isEmpty()) {
+            if(editText1.text.isEmpty()) {
+                editText1.error = "This field is required"
+            }
+            if(editText2.text.isEmpty()) {
+                editText2.error = "This field is required"
+            }
+        }
+        else {
+            val intent = Intent(this, MainActivity::class.java).also {
+                it.putExtra("player1",player1)
+                it.putExtra("player2",player2)
+                startActivity(it)
+            }
         }
     }
 }
