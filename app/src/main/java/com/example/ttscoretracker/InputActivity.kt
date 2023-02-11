@@ -37,8 +37,16 @@ class InputActivity : AppCompatActivity() {
         }
         else {
             val intent = Intent(this, MainActivity::class.java).also {
-                it.putExtra("player1",player1)
-                it.putExtra("player2",player2)
+                val newPlayer1 = player1.mapIndexed { index, c ->
+                    if (index == 0) c.uppercaseChar() else c
+                }.joinToString("")
+
+                val newPlayer2 = player2.mapIndexed { index, c ->
+                    if (index == 0) c.uppercaseChar() else c
+                }.joinToString("")
+
+                it.putExtra("player1",newPlayer1)
+                it.putExtra("player2",newPlayer2)
                 startActivity(it)
             }
         }
