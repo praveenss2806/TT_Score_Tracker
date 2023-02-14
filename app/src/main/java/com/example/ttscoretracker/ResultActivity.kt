@@ -13,6 +13,8 @@ class ResultActivity : AppCompatActivity() {
         val message2 = intent.getStringExtra("player2")
         val p1Points = intent.getIntExtra("p1TotalPoints",0)
         val p2Points = intent.getIntExtra("p2TotalPoints",0)
+        val p1Game = intent.getIntExtra("p1GameWon",0)
+        val p2Game = intent.getIntExtra("p2GameWon",0)
 
         val p1Name = findViewById<TextView>(R.id.RA_Name1).apply {
             text = message1
@@ -25,6 +27,12 @@ class ResultActivity : AppCompatActivity() {
         }
         val p2TotPoint = findViewById<TextView>(R.id.P2_Points).apply {
             text = p2Points.toString()
+        }
+        val p1TotGame = findViewById<TextView>(R.id.P1_Game).apply {
+            text = p1Game.toString()
+        }
+        val p2TotGame = findViewById<TextView>(R.id.P2_Game).apply {
+            text = p2Game.toString()
         }
     }
 }

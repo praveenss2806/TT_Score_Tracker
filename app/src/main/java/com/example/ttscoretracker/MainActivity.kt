@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
         var newGame1 = currentGame1.toInt()
 
         if(newPoint1 >= 11 && (newPoint1 - newPoint2 >= 2) ) {
+            P1GameWon += 1
             newGame1 += 1
             newPoint1 = 0
             newPoint2 = 0
@@ -83,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         var newGame2 = currentGame2.toInt()
 
         if(newPoint2 >= 11 && (newPoint2 - newPoint1 >= 2) ) {
+            P2GameWon += 1
             newGame2 += 1
             newPoint1 = 0
             newPoint2 = 0
@@ -103,8 +105,10 @@ class MainActivity : AppCompatActivity() {
             val message2 = intent.getStringExtra("player2")
             it.putExtra("player1",message1)
             it.putExtra("player2",message2)
-            it.putExtra("p1TotalPoints",P1TotalPoints);
-            it.putExtra("p2TotalPoints",P2TotalPoints);
+            it.putExtra("p1TotalPoints",P1TotalPoints)
+            it.putExtra("p2TotalPoints",P2TotalPoints)
+            it.putExtra("p1GameWon", P1GameWon)
+            it.putExtra("p2GameWon", P2GameWon)
             startActivity(it)
         }
     }
