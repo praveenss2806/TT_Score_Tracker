@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.example.ttscoretracker.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var P1PointScore: TextView
     private lateinit var P2PointScore: TextView
     private lateinit var P1GameScore: TextView
     private lateinit var P2GameScore: TextView
+    lateinit var binding: ActivityMainBinding
 
     var P1TotalPoints = 0
     var P2TotalPoints = 0
@@ -19,7 +22,14 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.startButton.setOnClickListener {
+            replaceFragment(ServeFragment())
+        }
+
+        //setContentView(R.layout.activity_main)
         P1PointScore = findViewById(R.id.pointScore1)
         P2PointScore = findViewById(R.id.pointScore2)
         P1GameScore = findViewById(R.id.gameScore)
@@ -41,6 +51,13 @@ class MainActivity : AppCompatActivity() {
         val p2NameBut = findViewById<TextView>(R.id.player2Name).apply {
             text = message2
         }
+    }
+
+    fun replaceFragment(fragment: Fragment) {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentContaner, fragment)
+        fragmentTransaction.commit()
     }
 
     fun addPlayer1Point(view: View) {

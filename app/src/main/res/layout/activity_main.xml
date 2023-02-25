@@ -145,27 +145,29 @@
                 android:gravity="center"/>
         </TableRow>
 
-        <TableRow>
-
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:onClick="addPlayer1Point"
-                android:text="Point Won" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:onClick="addPlayer2Point"
-                android:text="Point Won" />
-        </TableRow>
-
     </TableLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:id = '@+id/fragmentContaner'
+        android:name="com.example.ttscoretracker.TossFragment"
+        tools:layout="@layout/toss_fragment" />
+
+    <!-- Continue Button Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <!-- Continue Button -->
+        <Button
+            android:id="@+id/startButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start" />
+
+    </LinearLayout>
 
 </LinearLayout>

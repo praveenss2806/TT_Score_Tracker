@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Left Toss Button -->
+    <Button
+        android:id="@+id/p1_serve_button"
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="1"
+        android:text="Serve Button" />
+
+    <!-- Right Toss Button -->
+    <Button
+        android:id="@+id/p2_serve_button"
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="1"
+        android:text="Serve Button" />
+
+</LinearLayout>
