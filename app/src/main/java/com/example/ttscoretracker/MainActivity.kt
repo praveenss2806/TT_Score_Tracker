@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.ttscoretracker.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MyInterface {
     private lateinit var P1PointScore: TextView
     private lateinit var P2PointScore: TextView
     private lateinit var P1GameScore: TextView
@@ -24,10 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.startButton.setOnClickListener {
-            replaceFragment(ServeFragment())
-        }
 
         //setContentView(R.layout.activity_main)
         P1PointScore = findViewById(R.id.pointScore1)
@@ -128,5 +124,9 @@ class MainActivity : AppCompatActivity() {
             it.putExtra("p2GameWon", P2GameWon)
             startActivity(it)
         }
+    }
+
+    override fun transferredMessage(msg: String) {
+        replaceFragment(ServeFragment())
     }
 }

@@ -13,8 +13,10 @@ class TossFragment:Fragment(R.layout.toss_fragment) {
 
         val myButton = view.findViewById<Button>(R.id.left_toss_button)
 
-        myButton.setOnClickListener {
+        val myInterface = activity as MyInterface
 
+        myButton.setOnClickListener {
+            myInterface.transferredMessage("p1Won")
         }
     }
 }
