@@ -133,5 +133,8 @@ class MainActivity : AppCompatActivity(), MyInterface {
         else if(msg == "p2Won") {
             replaceFragment(ServeP2Fragment())
         }
+        else if(msg == "inPlay") {
+            replaceFragment(RallyFragment())
+        }
     }
 }
