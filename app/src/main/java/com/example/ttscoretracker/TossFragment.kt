@@ -11,12 +11,17 @@ class TossFragment:Fragment(R.layout.toss_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val myButton = view.findViewById<Button>(R.id.left_toss_button)
+        val myLeftButton = view.findViewById<Button>(R.id.left_toss_button)
+        val myRightButton = view.findViewById<Button>(R.id.right_toss_button)
 
         val myInterface = activity as MyInterface
 
-        myButton.setOnClickListener {
+        myLeftButton.setOnClickListener {
             myInterface.transferredMessage("p1Won")
+        }
+
+        myRightButton.setOnClickListener {
+            myInterface.transferredMessage("p2Won")
         }
     }
 }

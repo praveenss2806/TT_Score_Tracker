@@ -127,6 +127,11 @@ class MainActivity : AppCompatActivity(), MyInterface {
     }
 
     override fun transferredMessage(msg: String) {
-        replaceFragment(ServeFragment())
+        if(msg == "p1Won") {
+            replaceFragment(ServeFragment())
+        }
+        else if(msg == "p2Won") {
+            replaceFragment(ServeP2Fragment())
+        }
     }
 }
