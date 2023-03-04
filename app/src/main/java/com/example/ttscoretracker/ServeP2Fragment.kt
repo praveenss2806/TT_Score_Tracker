@@ -10,11 +10,21 @@ class ServeP2Fragment:Fragment(R.layout.servep2_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         val myPlayButton = view.findViewById<Button>(R.id.play2)
+        val aceButton = view.findViewById<Button>(R.id.ace2)
+        val faultButton = view.findViewById<Button>(R.id.fault2)
 
         val myInterface = activity as MyInterface
 
         myPlayButton.setOnClickListener {
             myInterface.transferredMessage("inPlay")
+        }
+
+        aceButton.setOnClickListener {
+            myInterface.transferredMessage("ace2")
+        }
+
+        faultButton.setOnClickListener {
+            myInterface.transferredMessage("fault2")
         }
     }
 }

@@ -51,12 +51,14 @@ class MainActivity : AppCompatActivity(), MyInterface {
 
     fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContaner, fragment)
-        fragmentTransaction.commit()
+        fragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContaner, fragment)
+            addToBackStack(null)
+            commit()
+        }
     }
 
-    fun addPlayer1Point(view: View) {
+    fun addPlayer1Point() {
         P1TotalPoints += 1
 
         val currentPoint1 = P1PointScore.text.toString()
@@ -84,7 +86,7 @@ class MainActivity : AppCompatActivity(), MyInterface {
         P1GameScore.text = newGame1.toString()
     }
 
-    fun addPlayer2Point(view: View) {
+    fun addPlayer2Point() {
         P2TotalPoints += 1
 
         val currentPoint1 = P1PointScore.text.toString()
@@ -135,6 +137,13 @@ class MainActivity : AppCompatActivity(), MyInterface {
         }
         else if(msg == "inPlay") {
             replaceFragment(RallyFragment())
+
+        }
+        else if(msg == "ace1" || msg == "fault2" || msg == "fhError2" || msg == "bhError2" || msg == "winner1") {
+            addPlayer1Point()
+        }
+        else if(msg == "ace2" || msg == "fault1" || msg == "fhError1" || msg == "bhError1" || msg == "winner2") {
+            addPlayer2Point()
         }
     }
 }

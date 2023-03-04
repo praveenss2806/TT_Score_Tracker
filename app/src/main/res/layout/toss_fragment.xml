@@ -10,7 +10,7 @@
         android:layout_height="500dp"
         android:layout_marginRight="5dp"
         android:layout_weight="1"
-        android:text="Toss Button" />
+        android:text="Toss Won" />
 
     <!-- Right Toss Button -->
     <Button
@@ -19,6 +19,6 @@
         android:layout_height="500dp"
         android:layout_marginLeft="5dp"
         android:layout_weight="1"
-        android:text="Toss Button" />
+        android:text="Toss Won" />
 
 </LinearLayout>
