@@ -1,6 +1,7 @@
 package com.example.ttscoretracker
 
 import android.content.Intent
+import android.os.Build.VERSION_CODES.S
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity(), MyInterface {
     var P2TotalPoints = 0
     var P1GameWon = 0
     var P2GameWon = 0
+    var serveSwitch = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -130,20 +132,43 @@ class MainActivity : AppCompatActivity(), MyInterface {
 
     override fun transferredMessage(msg: String) {
         if(msg == "p1Won") {
+            serveSwitch = "p11"
             replaceFragment(ServeFragment())
         }
         else if(msg == "p2Won") {
+            serveSwitch = "p21"
             replaceFragment(ServeP2Fragment())
         }
         else if(msg == "inPlay") {
             replaceFragment(RallyFragment())
-
         }
         else if(msg == "ace1" || msg == "fault2" || msg == "fhError2" || msg == "bhError2" || msg == "winner1") {
             addPlayer1Point()
+            changeServe()
         }
         else if(msg == "ace2" || msg == "fault1" || msg == "fhError1" || msg == "bhError1" || msg == "winner2") {
             addPlayer2Point()
+            changeServe()
+        }
+    }
+
+    //function to change serve every 2 points
+    fun changeServe() {
+        if(serveSwitch == "p11") {
+            serveSwitch = "p12"
+            replaceFragment(ServeFragment())
+        }
+        else if(serveSwitch == "p12") {
+            serveSwitch = "p21"
+            replaceFragment(ServeP2Fragment())
+        }
+        else if(serveSwitch == "p21") {
+            serveSwitch = "p22"
+            replaceFragment(ServeP2Fragment())
+        }
+        else if(serveSwitch == "p22") {
+            serveSwitch = "p11"
+            replaceFragment(ServeFragment())
         }
     }
 }
