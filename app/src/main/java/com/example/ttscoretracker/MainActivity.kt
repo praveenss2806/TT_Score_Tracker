@@ -20,6 +20,16 @@ class MainActivity : AppCompatActivity(), MyInterface {
     var P2TotalPoints = 0
     var P1GameWon = 0
     var P2GameWon = 0
+    var P1Ace = 0
+    var P2Ace = 0
+    var P1Fault = 0
+    var P2Fault = 0
+    var P1Winner = 0
+    var P2Winner = 0
+    var P1FhError = 0
+    var P2FhError = 0
+    var P1BhError = 0
+    var P2BhError = 0
     var serveSwitch = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,12 +130,24 @@ class MainActivity : AppCompatActivity(), MyInterface {
         val intent = Intent(this, ResultActivity::class.java).also {
             val message1 = intent.getStringExtra("player1")
             val message2 = intent.getStringExtra("player2")
+
             it.putExtra("player1",message1)
             it.putExtra("player2",message2)
             it.putExtra("p1TotalPoints",P1TotalPoints)
             it.putExtra("p2TotalPoints",P2TotalPoints)
             it.putExtra("p1GameWon", P1GameWon)
             it.putExtra("p2GameWon", P2GameWon)
+            it.putExtra("ace1",P1Ace)
+            it.putExtra("ace2",P2Ace)
+            it.putExtra("fault1",P1Fault)
+            it.putExtra("fault2",P2Fault)
+            it.putExtra("winner1", P1Winner)
+            it.putExtra("winner2", P2Winner)
+            it.putExtra("fhError1",P1FhError)
+            it.putExtra("fhError2",P2FhError)
+            it.putExtra("bhError1", P1BhError)
+            it.putExtra("bhError2", P2BhError)
+
             startActivity(it)
         }
     }
@@ -144,10 +166,12 @@ class MainActivity : AppCompatActivity(), MyInterface {
         }
         else if(msg == "ace1" || msg == "fault2" || msg == "fhError2" || msg == "bhError2" || msg == "winner1") {
             addPlayer1Point()
+            updateStats(msg)
             changeServe()
         }
         else if(msg == "ace2" || msg == "fault1" || msg == "fhError1" || msg == "bhError1" || msg == "winner2") {
             addPlayer2Point()
+            updateStats(msg)
             changeServe()
         }
     }
@@ -169,6 +193,40 @@ class MainActivity : AppCompatActivity(), MyInterface {
         else if(serveSwitch == "p22") {
             serveSwitch = "p11"
             replaceFragment(ServeFragment())
+        }
+    }
+
+    //function to update the stats of the match
+    fun updateStats(msg: String) {
+        if(msg == "ace1") {
+            P1Ace += 1;
+        }
+        else if(msg == "ace2") {
+            P2Ace += 1;
+        }
+        else if(msg == "fault1") {
+            P1Fault += 1
+        }
+        else if(msg == "fault2") {
+            P2Fault += 1
+        }
+        else if(msg == "winner1") {
+            P1Winner += 1
+        }
+        else if(msg == "winner2") {
+            P2Winner += 1
+        }
+        else if(msg == "fhError1") {
+            P1FhError += 1
+        }
+        else if(msg == "fhError2") {
+            P2FhError += 1
+        }
+        else if(msg == "bhError1") {
+            P1BhError += 1
+        }
+        else if(msg == "bhError2") {
+            P2BhError += 1
         }
     }
 }
