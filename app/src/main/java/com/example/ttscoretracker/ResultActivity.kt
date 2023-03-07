@@ -26,6 +26,8 @@ class ResultActivity : AppCompatActivity() {
         val p2FhError = intent.getIntExtra("fhError2",0)
         val p1BhError = intent.getIntExtra("bhError1",0)
         val p2BhError = intent.getIntExtra("bhError2",0)
+        val p1ReturnError = intent.getIntExtra("returnError1",0)
+        val p2ReturnError = intent.getIntExtra("returnError2",0)
 
         val p1Name = findViewById<TextView>(R.id.RA_Name1).apply {
             text = message1
@@ -76,6 +78,12 @@ class ResultActivity : AppCompatActivity() {
         }
         val p2ToBhError = findViewById<TextView>(R.id.P2_BhError).apply {
             text = p2BhError.toString()
+        }
+        val p1ToReturnError = findViewById<TextView>(R.id.P1_ReturnError).apply {
+            text = p1ReturnError.toString()
+        }
+        val p2ToReturnError = findViewById<TextView>(R.id.P2_ReturnError).apply {
+            text = p2ReturnError.toString()
         }
     }
 }

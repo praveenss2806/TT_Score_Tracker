@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity(), MyInterface {
     var P2FhError = 0
     var P1BhError = 0
     var P2BhError = 0
+    var P1ReturnError = 0
+    var P2ReturnError = 0
     var serveSwitch = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -147,6 +149,8 @@ class MainActivity : AppCompatActivity(), MyInterface {
             it.putExtra("fhError2",P2FhError)
             it.putExtra("bhError1", P1BhError)
             it.putExtra("bhError2", P2BhError)
+            it.putExtra("returnError1", P1ReturnError)
+            it.putExtra("returnError2", P2ReturnError)
 
             startActivity(it)
         }
@@ -164,12 +168,12 @@ class MainActivity : AppCompatActivity(), MyInterface {
         else if(msg == "inPlay") {
             replaceFragment(RallyFragment())
         }
-        else if(msg == "ace1" || msg == "fault2" || msg == "fhError2" || msg == "bhError2" || msg == "winner1") {
+        else if(msg == "ace1" || msg == "fault2" || msg == "fhError2" || msg == "bhError2" || msg == "winner1" || msg == "returnError2") {
             addPlayer1Point()
             updateStats(msg)
             changeServe()
         }
-        else if(msg == "ace2" || msg == "fault1" || msg == "fhError1" || msg == "bhError1" || msg == "winner2") {
+        else if(msg == "ace2" || msg == "fault1" || msg == "fhError1" || msg == "bhError1" || msg == "winner2" || msg == "returnError1") {
             addPlayer2Point()
             updateStats(msg)
             changeServe()
@@ -227,6 +231,12 @@ class MainActivity : AppCompatActivity(), MyInterface {
         }
         else if(msg == "bhError2") {
             P2BhError += 1
+        }
+        else if(msg == "returnError1") {
+            P1ReturnError += 1
+        }
+        else if(msg == "returnError2") {
+            P2ReturnError += 1
         }
     }
 }

@@ -12,6 +12,7 @@ class ServeP2Fragment:Fragment(R.layout.servep2_fragment) {
         val myPlayButton = view.findViewById<Button>(R.id.play2)
         val aceButton = view.findViewById<Button>(R.id.ace2)
         val faultButton = view.findViewById<Button>(R.id.fault2)
+        val returnErrorButton = view.findViewById<Button>(R.id.returnError2)
 
         val myInterface = activity as MyInterface
 
@@ -25,6 +26,10 @@ class ServeP2Fragment:Fragment(R.layout.servep2_fragment) {
 
         faultButton.setOnClickListener {
             myInterface.transferredMessage("fault2")
+        }
+
+        returnErrorButton.setOnClickListener {
+            myInterface.transferredMessage("returnError2")
         }
     }
 }

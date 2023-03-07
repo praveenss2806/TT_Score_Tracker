@@ -12,6 +12,7 @@ class ServeFragment:Fragment(R.layout.serve_fragment) {
         val myPlayButton = view.findViewById<Button>(R.id.play1)
         val aceButton = view.findViewById<Button>(R.id.ace1)
         val faultButton = view.findViewById<Button>(R.id.fault1)
+        val returnErrorButton = view.findViewById<Button>(R.id.returnError1)
 
         val myInterface = activity as MyInterface
 
@@ -25,6 +26,10 @@ class ServeFragment:Fragment(R.layout.serve_fragment) {
 
         faultButton.setOnClickListener {
             myInterface.transferredMessage("fault1")
+        }
+
+        returnErrorButton.setOnClickListener {
+            myInterface.transferredMessage("returnError1")
         }
     }
 }
