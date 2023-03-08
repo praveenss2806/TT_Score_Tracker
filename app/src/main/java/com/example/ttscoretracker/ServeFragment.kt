@@ -29,7 +29,7 @@ class ServeFragment:Fragment(R.layout.serve_fragment) {
         }
 
         returnErrorButton.setOnClickListener {
-            myInterface.transferredMessage("returnError1")
+            myInterface.transferredMessage("returnError2")
         }
     }
 }

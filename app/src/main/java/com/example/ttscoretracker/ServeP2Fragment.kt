@@ -29,7 +29,7 @@ class ServeP2Fragment:Fragment(R.layout.servep2_fragment) {
         }
 
         returnErrorButton.setOnClickListener {
-            myInterface.transferredMessage("returnError2")
+            myInterface.transferredMessage("returnError1")
         }
     }
 }
