@@ -1,13 +1,12 @@
 package com.example.ttscoretracker
 
 import android.content.Intent
-import android.os.Build.VERSION_CODES.S
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.ttscoretracker.databinding.ActivityMainBinding
+import java.util.*
 
 class MainActivity : AppCompatActivity(), MyInterface {
     private lateinit var P1PointScore: TextView
@@ -33,6 +32,7 @@ class MainActivity : AppCompatActivity(), MyInterface {
     var P1ReturnError = 0
     var P2ReturnError = 0
     var serveSwitch = ""
+    val stack = Stack<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +61,11 @@ class MainActivity : AppCompatActivity(), MyInterface {
         val p2NameBut = findViewById<TextView>(R.id.player2Name).apply {
             text = message2
         }
+
+        binding.undo.setOnClickListener {
+            performUndo()
+        }
+
     }
 
     fun replaceFragment(fragment: Fragment) {
@@ -100,6 +105,23 @@ class MainActivity : AppCompatActivity(), MyInterface {
         P1GameScore.text = newGame1.toString()
     }
 
+    fun decPlayer1Point() {
+        P1TotalPoints -= 1
+
+        val currentPoint1 = P1PointScore.text.toString()
+        var newPoint1 = currentPoint1.toInt().dec()
+
+        val currentPoint2 = P2PointScore.text.toString()
+        var newPoint2 = currentPoint2.toInt()
+
+        val currentGame1 = P1GameScore.text.toString()
+        var newGame1 = currentGame1.toInt()
+
+        P1PointScore.text = newPoint1.toString()
+        P2PointScore.text = newPoint2.toString()
+        P1GameScore.text = newGame1.toString()
+    }
+
     fun addPlayer2Point() {
         P2TotalPoints += 1
 
@@ -122,6 +144,23 @@ class MainActivity : AppCompatActivity(), MyInterface {
         if(newGame2 == 2) {
             resultIntent()
         }
+
+        P1PointScore.text = newPoint1.toString()
+        P2PointScore.text = newPoint2.toString()
+        P2GameScore.text = newGame2.toString()
+    }
+
+    fun decPlayer2Point() {
+        P2TotalPoints -= 1
+
+        val currentPoint1 = P1PointScore.text.toString()
+        var newPoint1 = currentPoint1.toInt()
+
+        val currentPoint2 = P2PointScore.text.toString()
+        var newPoint2 = currentPoint2.toInt().dec()
+
+        val currentGame2 = P2GameScore.text.toString()
+        var newGame2 = currentGame2.toInt()
 
         P1PointScore.text = newPoint1.toString()
         P2PointScore.text = newPoint2.toString()
@@ -170,12 +209,14 @@ class MainActivity : AppCompatActivity(), MyInterface {
         }
         else if(msg == "ace1" || msg == "fault2" || msg == "fhError2" || msg == "bhError2" || msg == "winner1" || msg == "returnError2") {
             addPlayer1Point()
-            updateStats(msg)
+            updateStats(msg, 0)
+            stack.push(msg)
             changeServe()
         }
         else if(msg == "ace2" || msg == "fault1" || msg == "fhError1" || msg == "bhError1" || msg == "winner2" || msg == "returnError1") {
             addPlayer2Point()
-            updateStats(msg)
+            updateStats(msg, 0)
+            stack.push(msg)
             changeServe()
         }
     }
@@ -201,42 +242,126 @@ class MainActivity : AppCompatActivity(), MyInterface {
     }
 
     //function to update the stats of the match
-    fun updateStats(msg: String) {
+    fun updateStats(msg: String, flag : Int) {
         if(msg == "ace1") {
-            P1Ace += 1;
+            if(flag == 0) {
+                P1Ace += 1;
+            }
+            else {
+                P1Ace -= 1;
+                decPlayer1Point()
+            }
+
         }
         else if(msg == "ace2") {
-            P2Ace += 1;
+            if(flag == 0) {
+                P2Ace += 1;
+            }
+            else {
+                P2Ace -= 1;
+                decPlayer2Point()
+            }
         }
         else if(msg == "fault1") {
-            P1Fault += 1
+            if(flag == 0) {
+                P1Fault += 1
+            }
+            else {
+                P1Fault -= 1
+                decPlayer2Point()
+            }
         }
         else if(msg == "fault2") {
-            P2Fault += 1
+            if(flag == 0) {
+                P2Fault += 1
+            }
+            else {
+                P2Fault -= 1
+                decPlayer1Point()
+            }
         }
         else if(msg == "winner1") {
-            P1Winner += 1
+            if(flag == 0) {
+                P1Winner += 1
+            }
+            else {
+                P1Winner -= 1
+                decPlayer1Point()
+            }
         }
         else if(msg == "winner2") {
-            P2Winner += 1
+            if(flag == 0) {
+                P2Winner += 1
+            }
+            else {
+                P2Winner -= 1
+                decPlayer2Point()
+            }
         }
         else if(msg == "fhError1") {
-            P1FhError += 1
+            if(flag == 0) {
+                P1FhError += 1
+            }
+            else {
+                P1FhError -= 1
+                decPlayer2Point()
+            }
         }
         else if(msg == "fhError2") {
-            P2FhError += 1
+            if(flag == 0) {
+                P2FhError += 1
+            }
+            else {
+                P2FhError -= 1
+                decPlayer1Point()
+            }
         }
         else if(msg == "bhError1") {
-            P1BhError += 1
+            if(flag == 0) {
+                P1BhError += 1
+            }
+            else {
+                P1BhError -= 1
+                decPlayer2Point()
+            }
         }
         else if(msg == "bhError2") {
-            P2BhError += 1
+            if(flag == 0) {
+                P2BhError += 1
+            }
+            else {
+                P2BhError -= 1
+                decPlayer1Point()
+            }
         }
         else if(msg == "returnError1") {
-            P1ReturnError += 1
+            if(flag == 0) {
+                P1ReturnError += 1
+            }
+            else {
+                P1ReturnError -= 1
+                decPlayer2Point()
+            }
         }
         else if(msg == "returnError2") {
-            P2ReturnError += 1
+            if(flag == 0) {
+                P2ReturnError += 1
+            }
+            else {
+                P2ReturnError -= 1
+                decPlayer1Point()
+            }
+        }
+    }
+
+    fun performUndo() {
+        val fragmentManager = supportFragmentManager
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack()
+        }
+        if(!stack.empty()) {
+            updateStats(stack.peek(), 1)
+            stack.pop()
         }
     }
 }
