@@ -32,6 +32,8 @@ class MainActivity : AppCompatActivity(), MyInterface {
     var P1ReturnError = 0
     var P2ReturnError = 0
     var serveSwitch = ""
+
+    var pointStack= Stack< List<Int> >()
     val stack = Stack<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +92,7 @@ class MainActivity : AppCompatActivity(), MyInterface {
         var newGame1 = currentGame1.toInt()
 
         if(newPoint1 >= 11 && (newPoint1 - newPoint2 >= 2) ) {
+            pointStack.push(listOf(newPoint1 -1, newPoint2, 0))
             P1GameWon += 1
             newGame1 += 1
             newPoint1 = 0
@@ -99,23 +102,6 @@ class MainActivity : AppCompatActivity(), MyInterface {
         if(newGame1 == 2) {
             resultIntent()
         }
-
-        P1PointScore.text = newPoint1.toString()
-        P2PointScore.text = newPoint2.toString()
-        P1GameScore.text = newGame1.toString()
-    }
-
-    fun decPlayer1Point() {
-        P1TotalPoints -= 1
-
-        val currentPoint1 = P1PointScore.text.toString()
-        var newPoint1 = currentPoint1.toInt().dec()
-
-        val currentPoint2 = P2PointScore.text.toString()
-        var newPoint2 = currentPoint2.toInt()
-
-        val currentGame1 = P1GameScore.text.toString()
-        var newGame1 = currentGame1.toInt()
 
         P1PointScore.text = newPoint1.toString()
         P2PointScore.text = newPoint2.toString()
@@ -135,6 +121,7 @@ class MainActivity : AppCompatActivity(), MyInterface {
         var newGame2 = currentGame2.toInt()
 
         if(newPoint2 >= 11 && (newPoint2 - newPoint1 >= 2) ) {
+            pointStack.push(listOf(newPoint1, newPoint2 - 1, 1))
             P2GameWon += 1
             newGame2 += 1
             newPoint1 = 0
@@ -144,23 +131,6 @@ class MainActivity : AppCompatActivity(), MyInterface {
         if(newGame2 == 2) {
             resultIntent()
         }
-
-        P1PointScore.text = newPoint1.toString()
-        P2PointScore.text = newPoint2.toString()
-        P2GameScore.text = newGame2.toString()
-    }
-
-    fun decPlayer2Point() {
-        P2TotalPoints -= 1
-
-        val currentPoint1 = P1PointScore.text.toString()
-        var newPoint1 = currentPoint1.toInt()
-
-        val currentPoint2 = P2PointScore.text.toString()
-        var newPoint2 = currentPoint2.toInt().dec()
-
-        val currentGame2 = P2GameScore.text.toString()
-        var newGame2 = currentGame2.toInt()
 
         P1PointScore.text = newPoint1.toString()
         P2PointScore.text = newPoint2.toString()
@@ -198,13 +168,16 @@ class MainActivity : AppCompatActivity(), MyInterface {
     override fun transferredMessage(msg: String) {
         if(msg == "p1Won") {
             serveSwitch = "p11"
+            stack.push(msg)
             replaceFragment(ServeFragment())
         }
         else if(msg == "p2Won") {
             serveSwitch = "p21"
+            stack.push(msg)
             replaceFragment(ServeP2Fragment())
         }
         else if(msg == "inPlay") {
+            stack.push(msg)
             replaceFragment(RallyFragment())
         }
         else if(msg == "ace1" || msg == "fault2" || msg == "fhError2" || msg == "bhError2" || msg == "winner1" || msg == "returnError2") {
@@ -239,6 +212,74 @@ class MainActivity : AppCompatActivity(), MyInterface {
             serveSwitch = "p11"
             replaceFragment(ServeFragment())
         }
+    }
+
+    fun decPlayer1Point() {
+        P1TotalPoints -= 1
+
+        val currentPoint1 = P1PointScore.text.toString()
+        var newPoint1 = currentPoint1.toInt().dec()
+
+        val currentPoint2 = P2PointScore.text.toString()
+        var newPoint2 = currentPoint2.toInt()
+
+        val currentGame1 = P1GameScore.text.toString()
+        var newGame1 = currentGame1.toInt()
+
+        val currentGame2 = P2GameScore.text.toString()
+        var newGame2 = currentGame2.toInt()
+
+        if(newPoint1 == -1) {
+            val tempVar = pointStack.peek()
+            newPoint1 = tempVar[0]
+            newPoint2 = tempVar[1]
+            if(tempVar[2] == 0) {
+                newGame1 -= 1;
+            }
+            else {
+                newGame2 -= 1;
+            }
+            pointStack.pop()
+        }
+
+        P1PointScore.text = newPoint1.toString()
+        P2PointScore.text = newPoint2.toString()
+        P1GameScore.text = newGame1.toString()
+        P2GameScore.text = newGame2.toString()
+    }
+
+    fun decPlayer2Point() {
+        P2TotalPoints -= 1
+
+        val currentPoint1 = P1PointScore.text.toString()
+        var newPoint1 = currentPoint1.toInt()
+
+        val currentPoint2 = P2PointScore.text.toString()
+        var newPoint2 = currentPoint2.toInt().dec()
+
+        val currentGame1 = P1GameScore.text.toString()
+        var newGame1 = currentGame1.toInt()
+
+        val currentGame2 = P2GameScore.text.toString()
+        var newGame2 = currentGame2.toInt()
+
+        if(newPoint2 == -1) {
+            val tempVar = pointStack.peek()
+            newPoint1 = tempVar[0]
+            newPoint2 = tempVar[1]
+            if(tempVar[2] == 0) {
+                newGame1 -= 1;
+            }
+            else {
+                newGame2 -= 1;
+            }
+            pointStack.pop()
+        }
+
+        P1PointScore.text = newPoint1.toString()
+        P2PointScore.text = newPoint2.toString()
+        P2GameScore.text = newGame2.toString()
+        P1GameScore.text = newGame1.toString()
     }
 
     //function to update the stats of the match
@@ -360,7 +401,9 @@ class MainActivity : AppCompatActivity(), MyInterface {
             fragmentManager.popBackStack()
         }
         if(!stack.empty()) {
-            updateStats(stack.peek(), 1)
+            if(!(stack.peek() == "p1Won" || stack.peek() == "p2Won" || stack.peek() == "inPlay")) {
+                updateStats(stack.peek(), 1)
+            }
             stack.pop()
         }
     }
