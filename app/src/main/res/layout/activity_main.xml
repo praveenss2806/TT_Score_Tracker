@@ -157,13 +157,13 @@
                 android:gravity="center"/>
         </TableRow>
 
-    </TableLayout>
+        <androidx.fragment.app.FragmentContainerView
+            android:id='@+id/fragmentContaner'
+            android:name="com.example.ttscoretracker.TossFragment"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            tools:layout="@layout/toss_fragment" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id='@+id/fragmentContaner'
-        android:name="com.example.ttscoretracker.TossFragment"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
-        tools:layout="@layout/toss_fragment" />
+    </TableLayout>
 
 </LinearLayout>
